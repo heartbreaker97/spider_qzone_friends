@@ -76,7 +76,7 @@ function postChart(){
                 scaling: 1.1,
                 "nodes": [
                 	<?php
-				 		$file = fopen('这里修改为第二部得到的txt文件路径','r,ccs=UTF-8');
+				 		$file = fopen('这里修改为第三步得到的txt文件路径','r,ccs=UTF-8');
 				 		$id = 0;
 				 		$name_id = [];
 				 		#生成name_id映射数组
@@ -85,7 +85,7 @@ function postChart(){
 				 			$flag_0 = true;
 				 			$flag_1 = true;
 				 			$line = fgets($file);
-				 			$data = explode(' | ', $line);
+				 			$data = explode('$|$', $line);
 							if($data['0'] == '')
 								continue;
 							#便利遍历数组如果该节点id以生成那么不再生成结点
@@ -118,10 +118,10 @@ function postChart(){
                 "links": [
                 	<?php
                 		#再读一遍数据
-                		$file2 = fopen('这里修改为第二部得到的txt文件路径','r,ccs=UTF-8');
+                		$file2 = fopen('这里修改为第三步得到的txt文件路径','r,ccs=UTF-8');
 				 		while (! feof($file2)) {
 				 			$line = fgets($file2);
-				 			$data = explode(' | ', $line);
+				 			$data = explode('$|$', $line);
 				 			if($data['0'] == '')
 								continue;
 				 			#根据name_id，生成对应边

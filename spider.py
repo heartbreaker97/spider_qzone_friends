@@ -2,6 +2,7 @@ import urllib
 import requests
 import json
 import re
+import threadpool
 import time
 import operator as op
 
@@ -161,7 +162,7 @@ class Qzone:
 
             #这里爬说说结束，注意和上面的区别，一个是不存在键值，一个是存在键，但值类型为None
             if msg['msglist'] == None:
-                print('无更多说说')
+                print('\n'+name+'的空间无更多说说'+'\n')
                 return 0
 
             #得到的说说相关内容都在msglist(list类型)里面，msglist[i]是字典类型，可利用keys方法查看结构
@@ -212,9 +213,9 @@ class Qzone:
     #得到好友qq
     def get_qq(self):
         qq_list = []
-        friend_dict = self.get_friend()
-        for name,qq in friend_dict.items():
-            qq_list.append(qq)
+        friend_list = self.get_friend()
+        for friend in friend_list:
+            qq_list.append(friend[1])
         return qq_list
 
 
@@ -233,22 +234,31 @@ class Qzone:
         res = requests.get(url_friend, headers = header, cookies = cookie)
         friend_json = re.findall('\((.*)\)',res.text,re.S)[0]
         friend_dict = json.loads(friend_json)
-        friend_result_dict = {}
+        friend_result_list = []
         #循环将好友的姓名qq号存入字典中
         for friend in friend_dict['data']['items_list']:
-            friend_result_dict[friend['name']] = friend['uin']
+            friend_result_list.append([friend['name'],friend['uin']])
         #得到的好友字典是{name: qqNum}格式的
-        return friend_result_dict
+        return friend_result_list
+
+    def get(self, friend_list):
+        self.find_topic(friend_list[1], friend_list[0])
 
     #开始
     def start(self):
         global relationships
-        friend_dict = self.get_friend()
+        friend_list = self.get_friend()
+        pool_size = 15
+        pool = threadpool.ThreadPool(pool_size)
+        # 创建工作请求，这里他自己会把list分开
+        reqs = threadpool.makeRequests(self.get,friend_list)
+        # 将工作请求放入队列
+        [pool.putRequest(req) for req in reqs]
+        # for req in requests:
+        #    pool.putRequest(req)
+        pool.wait()
 
-        #得到好友字典后开始循环访问
-        for name,qq in friend_dict.items():
-            time.sleep(3)
-            self.find_topic(qq,name)
+
 
 
 if __name__ == '__main__':
