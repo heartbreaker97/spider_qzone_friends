@@ -14,6 +14,8 @@
 ![去掉名字](https://github.com/heartbreaker97/spider_qzone_friends/blob/master/relation.png)
 
 局部效果
+
+
 ![局部图](https://github.com/heartbreaker97/spider_qzone_friends/blob/master/pic.jpg)
 
 爬虫太慢，代码还在持续修改重构中，针对没有搭建本地web服务器的显示结果
