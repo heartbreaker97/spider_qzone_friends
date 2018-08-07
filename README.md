@@ -11,11 +11,14 @@
 4.将show_relation中的relation.php按照其中提示修改第三步得到的txt文件的路径，再将整文件夹放置本地搭建的web服务器下，并在http://echarts.baidu.com/download.html 下载echarts插件，放在该文件夹下在浏览器上打开relation.php
 
 效果图，为了显示效果和隐私问题，把名字给去了
-![去掉名字](https://github.com/heartbreaker97/spider_qzone_friends/blob/master/relation.png)
+![去掉名字](https://github.com/heartbreaker97/spider_qzone_friends/blob/master/show_relation/result.png)
+
+
 
 局部效果
 
 
-![局部图](https://github.com/heartbreaker97/spider_qzone_friends/blob/master/pic.jpg)
+
+![局部图](https://github.com/heartbreaker97/spider_qzone_friends/blob/master/show_relation/result_partial.png)
 
 爬虫太慢，代码还在持续修改重构中，针对没有搭建本地web服务器的显示结果
