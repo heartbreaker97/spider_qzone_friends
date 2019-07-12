@@ -149,7 +149,7 @@ class Qzone:
             page += 1
             #匹配出_preloadCallback之后的内容
             if len(re.findall('\((.*)\)', res.text)) == 0:
-                记录下没有权限的
+                #记录下没有权限的
                 file_denied.write(name + ': ' + str(qq) + '\n')
                 continue
             r = re.findall('\((.*)\)', res.text)[0]
